@@ -1,0 +1,147 @@
+{
+  "name": "Project-n8n-workflow-Lange-1-Moon-Phase-A.Lange&Sohne",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        272,
+        48
+      ],
+      "id": "f9515018-3b15-4669-8cbf-98f530fd6260"
+    },
+    {
+      "parameters": {
+        "url": "https://www.alange-soehne.com/au-en/timepieces/lange-1/lange-1-moon-phase/lange-1-moon-phase-in-950-platinum-192-025",
+        "allowUnauthorizedCerts": true,
+        "responseFormat": "string",
+        "options": {
+          "timeout": 30000
+        },
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "User-agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+            },
+            {
+              "name": "Accept",
+              "value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.5"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.alange-soehne.com/"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "identity"
+            }
+          ]
+        }
+      },
+      "name": "Get Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        480,
+        48
+      ],
+      "id": "19c1f6fa-e75d-4b75-a59b-2b3449409820"
+    },
+    {
+      "parameters": {
+        "extractionValues": {
+          "values": [
+            {
+              "key": "title",
+              "cssSelector": "title"
+            },
+            {
+              "key": "og_title",
+              "cssSelector": " meta[property=\"og:title\"]",
+              "returnValue": "attribute",
+              "attribute": "content"
+            },
+            {
+              "key": "canonical_url",
+              "cssSelector": "link[rel=canonical]",
+              "returnValue": "attribute",
+              "attribute": "href"
+            },
+            {
+              "key": "description",
+              "cssSelector": "meta[property=\"og:description\"]",
+              "returnValue": "attribute",
+              "attribute": "content"
+            },
+            {
+              "key": "power_reserve",
+              "cssSelector": ".technical-details-panel__detail-list li:contains(\"hours\")"
+            },
+            {
+              "key": "balance_frequency",
+              "cssSelector": ".technical-details-panel__detail-list li:contains(\"semi-oscillations\")"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Data",
+      "type": "n8n-nodes-base.htmlExtract",
+      "typeVersion": 1,
+      "position": [
+        672,
+        48
+      ],
+      "id": "4d9c82e7-431b-4995-8b96-6550f7771272"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Get Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Page": {
+      "main": [
+        [
+          {
+            "node": "Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5aeace4d-d803-40b4-b449-71a971f2b5e9",
+  "meta": {
+    "templateId": "1951",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2d94f909274b6932eebf7bf6d088d0305b70557ad64b4376f5a25a68b4d9b2f2"
+  },
+  "id": "iGH3FdLgmYunFbMb",
+  "tags": []
+}
